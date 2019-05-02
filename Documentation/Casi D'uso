@@ -1,0 +1,26 @@
+Titolo: Inclinazione di un giroscopio sull’asse x verso destra
+Autore: Intini
+Storia:
+1.	L’utente avvia l’applicazione.
+2.	Il programma fa comparire due vasche
+3.	L’utente inclina il dispositivo verso destra.
+4.	L’acqua si sposta verso il bordo destro.
+5.	L’acqua contenuta nella vasca destra va verso il bordo destro
+6.	L’acqua contenuta nella vasca sinistra va verso destra fino a strabordare nella vasca di destra
+7.	La barca se si trova nella vasca destra rimane ferma
+8.	Se si trova nella vasca sinistra e l’acqua straborda, anche la barca finirà nella vasca in cui sta entrando l’acqua
+9.	La vasca destra perde acqua mentre quella sinistra la recupera
+
+Titolo: Inclinazione di un giroscopio sull’asse x verso sinistra
+Autore: Intini
+Storia:
+1.	L’utente avvia l’applicazione.
+2.	Il programma fa comparire due vasche
+3.	L’utente inclina il dispositivo verso sinistra.
+4.	L’acqua si sposta verso il bordo sinistro
+5.	L’acqua contenuta nella vasca sinistra va verso il bordo sinistro
+6.	L’acqua contenuta nella vasca destra va verso sinistra fino a strabordare nella vasca di sinistra
+7.	La barca se si trova nella vasca sinistra rimane ferma
+8.	Se si trova nella vasca sinistra e l’acqua straborda, anche la barca finirà nella vasca in cui sta entrando l’acqua
+9.	La vasca sinistra perde acqua mentre quella destra la recupera
+
