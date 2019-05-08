@@ -26,27 +26,29 @@ public class ThVasca extends Thread {
 
         while (!isInterrupted()) {
             vasca.movimento();
-            final Directions direzioneUscita = vasca.getAcquaPresente().direzioneDiUscitaAcqua((int) vasca.getDimensioni().getHeight());
+            final Direzioni direzioneUscita = vasca.getAcquaPresente().direzioneDiUscitaAcqua((int) vasca.getDimensioni().getHeight());
 
-            if (direzioneUscita != Directions.NONE) {
+            if (direzioneUscita != Direzioni.NONE) {
                 System.out.println("L'acqua sta uscendo!");
                 final Vasca ricevente = ptrDati.getVascaAdiacente(idVasca, direzioneUscita);
                 vasca.spostaAcqua(1, ricevente);
                 if (vasca.getBarca().isPresente()) {
-                    final Directions dirBarca = vasca.isBarcaControBordi();
-                    if (dirBarca != Directions.NONE) {
+                    final Direzioni dirBarca = vasca.isBarcaControBordi();
+                    if (dirBarca != Direzioni.NONE) {
                         final Vasca v = ptrDati.getVascaAdiacente(idVasca, dirBarca);
                         vasca.spostaBarca(v);
                         Point nuovaPos = v.getBarca().getPosizione();
                         switch (dirBarca) {
+                            case DESTRA:
+                            case SINISTRA:
+                                nuovaPos.x = -nuovaPos.x;
+                                break;
+                                
                             case SOPRA:
                             case SOTTO:
                                 nuovaPos.y = -nuovaPos.y;
                                 break;
-                            case SINISTRA:
-                            case DESTRA:
-                                nuovaPos.x = -nuovaPos.x;
-                                break;
+
                         }
                         v.getBarca().sposta(nuovaPos);
                     }
