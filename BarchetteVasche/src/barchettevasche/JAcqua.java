@@ -34,7 +34,7 @@ public class JAcqua {
      L'attributo indica il valore raggiunto minimo (in cm) dell' acqua sulla "lato di appoggio" inferiore. 
      
      @author  Buccheri Federico
-     @version 1.0
+     @version 1.0 
     */
     private float altezzaLatoMinore;
     
