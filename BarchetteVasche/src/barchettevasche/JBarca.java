@@ -1,10 +1,6 @@
 import java.awt.Color;
 import java.awt.Point;
 import processing.core.PApplet;
-/**
- *
- * @author Buccheri Federico
- */
 
 public final class JBarca {
     
@@ -51,7 +47,6 @@ public final class JBarca {
     }
     
     public void visualizza() {
-        //TO DO
     }
     
     public void rimuoviBarca() { //La barca viene rimossa
