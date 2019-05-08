@@ -4,72 +4,49 @@ import javax.swing.text.Position;
 import processing.core.PApplet;
 
 /**
- @author  Buccheri Federico
- @version 1.0
- @brief La classe viene utilizzata per la gestione dell'acqua presente all'interno di una vasca
+La classe viene utilizzata per la gestione dell'acqua presente all'interno di una vasca
  */
 public class JAcqua {
     /**
-     @brief L'attributo rappresenta la direzione di inclinazione del piano 
+  	L'attributo rappresenta la direzione di inclinazione del piano 
      L'attributo puo' assumere il valore: 
-        - "+1" quando l'inclinazione e' positiva e quindi l'acqua si muove da DX verso SX;
-        - "-1" quando l'inclinazione e' negativa e quindi l'acqua si muove da SX verso DX.
-     
-     @author  Buccheri Federico
-     @version 1.0
+        - "+1" l'acqua si muove da DX verso SX;
+        - "-1" l'acqua si muove da SX verso DX.
     */
     private float movimentoX;
     
     /**
-     @brief L'attributo rappresenta l'altezza massima raggiunta dall' acqua sul lato maggiore
+     L'attributo rappresenta l'altezza massima raggiunta dall' acqua sul lato maggiore
      L'attributo indica il valore raggiunto massimo (in cm) dell' acqua sul "lato di appoggio" superiore. 
-     
-     @author  Buccheri Federico
-     @version 1.0
     */
     private float altezzaLatoMaggiore;
     
     /**
-     @brief L'attributo rappresenta l'altezza minima raggiunta dall' acqua sulla lato minore
-     L'attributo indica il valore raggiunto minimo (in cm) dell' acqua sulla "lato di appoggio" inferiore. 
-     
-     @author  Buccheri Federico
-     @version 1.0 
+     L'attributo rappresenta l'altezza minima raggiunta dall' acqua sulla lato minore
+     L'attributo indica il valore raggiunto minimo (in cm) dell' acqua sulla "lato di appoggio" inferiore.  
     */
     private float altezzaLatoMinore;
     
     /**
-     @brief L'attributo rappresenta la quantità di acqua presente all'interno della vasca
-     
-     @author  Buccheri Federico
-     @version 1.0
+     L'attributo rappresenta la quantità di acqua presente all'interno della vasca
     */
     private float quantitaacqua;//QUANTITA MAX 100
     
     /**
-     @brief L'attributo rappresenta la velocita' di spostamento dell' acqua
-      
-     @author  Buccheri Federico
-     @version 1.0
+     L'attributo rappresenta la velocita' di spostamento dell' acqua     
     */
     private float velocita;
     
     /**
-     @brief L'attributo rappresenta "la tavola da disegno" utilizzata dal main per la visualizzazione dell'interfaccia grafica
-      Viene utilizzato per utilizzare i metodi di disegno utilizzati da processing
-      
-     @author  Buccheri Federico
-     @version 1.0
+     L'attributo rappresenta "la tavola" utilizzata dal main per la visualizzazione dell'interfaccia grafica
+     Viene utilizzato per utilizzare i metodi di disegno utilizzati da processing      
     */
     private PApplet processingSketch;
             
     /**
-     @brief Costruttore senza parametri della classe
+     Costruttore senza parametri della classe
      Il Costruttore vuoto della classe permette di avviare la fase di setup ed impostare a valori 
      di default gli attributi della classe
-     
-     @author  Buccheri Federico
-     @version 1.0
     */
     public JAcqua(){
         this.quantitaacqua=10;
@@ -77,18 +54,9 @@ public class JAcqua {
     }
     
     /**
-     @brief Costruttore con parametri della classe
+     Costruttore con parametri della classe
      Il Costruttore con parametri della classe permette di avviare la fase di setup ed impostare a valori 
-     di default gli attributi della classe, inoltre gli attributi.
-     
-	 quantita e processingSketch assumeranno i valori passati come parametro
-      
-     @param quantita quantita' presente di acqua
-     @param disegno puntatore che identifica quale "tavola da disegno" dovra' essere utilizzata per la visualizzazione
-     della parte grafica della acqua
-      
-     @author  Buccheri Federico
-     @version 1.0
+     di default gli attributi della classe, inoltre gli attributi. 
     */
     public JAcqua(float quantita, PApplet disegno){
         this.quantitaacqua=quantita;
@@ -97,11 +65,8 @@ public class JAcqua {
     }
     
     /**
-     @brief Metodo che imposta gli attributi movimentoX e velocita a valori di default
+     Metodo che imposta gli attributi movimentoX e velocita a valori di default
      Il metodo viene richiamato da ogni costruttore per inizializzare gli attributi
-     
-     @author  Buccheri Federico
-     @version 1.0
     */
     private void setup(){
         movimentoX=0;
@@ -110,38 +75,25 @@ public class JAcqua {
     }
     
     /**
-     @brief Il metodo permette di aumentare il volume dell' acqua presente
+     Il metodo permette di aumentare il volume dell' acqua presente
       
-     @paran aggiunta la quantita' di acqua che dovra' essere aggiunta all'attributo quantitaacqua della classe
-     
-     @author  Buccheri Federico
-     @version 1.0
+     aggiunta la quantita' di acqua che dovra' essere aggiunta all'attributo quantitaacqua della classe.
     */
     public void aggiungiacqua(float aggiunta){
         quantitaacqua+=aggiunta;
     }
     
     /**
-     @brief Il metodo permette di diminuire il volume dell' acqua presente
-      
-     @paran rimossa la quantita' di acqua che dovra' essere rimossa all'attributo quantitaacqua della classe
-     
-     @author  Buccheri Federico
-     @version 1.0
+     Il metodo permette di diminuire il volume dell' acqua presente  
+     rimossa la quantita' di acqua che dovra' essere rimossa all'attributo quantitaacqua della classe
     */
     public void rimuoviacqua(float rimossa){
         quantitaacqua-=rimossa;
     }
     
     /**
-     @brief Il metodo permette di calcolare i valori degli attributi MovimentoX, altezzaLatoMaggiore e altezzaLatoMinore
-      Il metodo richiama alcune funzioni che calcolano, in base ad alcuni parametri, i valori che gli attributi dovranno assumere
-      
-     @paran inclinazioneX l'inclinazione dell' acqua
-     @param dimensioni le dimensioni della vasca dove e' presente l' acqua
-     
-     @author  Buccheri Federico
-     @version 1.0
+     Il metodo permette di calcolare i valori degli attributi MovimentoX, altezzaLatoMaggiore e altezzaLatoMinore
+     Il metodo richiama alcune funzioni che calcolano, in base ad alcuni parametri, i valori che gli attributi dovranno assumere
     */
     public void aggiornati(float inclinazioneX, Box dimensioni){
         impostaMovimentoX(inclinazioneX);
@@ -150,15 +102,7 @@ public class JAcqua {
     }
       
     /**
-     @brief Il metodo permette di calcolare i valori che altezzaLatoMaggiore e altezzaLatoMinore assumeranno
-      Tenendo conto dell'inclinazione e delle dimensioni della vasca, il metodo applica alcune formule matematiche 
-      (seno, coseno, somma di angoli, etc.) e permette il calcolo dell'altezza dell' acqua sulle due sponde della vasca.
-      
-     @paran inclinazioneX l'inclinazione dell' acqua
-     @param dimensioni le dimensioni della vasca dove e' presente l' acqua
-      
-     @author  Buccheri Federico
-     @version 1.0
+     Il metodo permette di calcolare i valori che altezzaLatoMaggiore e altezzaLatoMinore assumeranno
     */
     private void calcolaLivelloDiRaggiungimentoMaggiore(float inclinazioneX,Box dimensioni){
         inclinazioneX=Math.abs(inclinazioneX);//La rendo sempre positiva
@@ -207,15 +151,8 @@ public class JAcqua {
     }
     
     /**
-     @brief Il metodo permette di impostare l'attributo movimentoX della classe
-     Il metodo imposta in base al parametro passato, l'attributo movimentoX della classe.
-     Quando il parametro e' positivo (acqua che si muove da DX a SX), il movimentoX viene impostato a +1;
-     se negativo (acqua che si muove da SX a DX), movimentoX viene impostato a -1
-     
-     @paran inclinazioneX l'inclinazione della acqua
-     
-     @author  Buccheri Federico
-     @version 1.0
+     Il metodo permette di impostare l'attributo movimentoX della classe
+     Il metodo imposta in base al parametro passato, l'attributo movimentoX della classe.     
     */
     private void impostaMovimentoX(float inclinazioneX){
         //IMPOSTO IL VERSO DI MOVIMENTO/ORIENTAMENTO DELL'ACQUA (VERSO DX O VERSO SX)
@@ -232,16 +169,10 @@ public class JAcqua {
     }
     
     /**
-     @brief Il metodo dice se la acqua sta uscendo dalla vasca
+     Il metodo dice se la acqua sta uscendo dalla vasca
      Il metodo controlla se l'altezza dell' acqua sulla sua lato maggiore (altezzaLatoMaggiore), 
      e' superiore rispetto all'altezza da superare; in tal caso la acqua esce altrimenti l' acqua 
      non ha un inclinazione tale da permettere la sua fuoriuscita.
-     
-     @paran altezzaDaSuperare l'altezza dopo la quale la acqua esce
-     @return boolean True: esce la acqua  | False: la acqua non ha un inclinazione tale per uscire
-     
-     @author  Buccheri Federico
-     @version 1.0
     */
     private boolean staUscendo(int altezzaDaSuperare){
         if(altezzaLatoMaggiore>altezzaDaSuperare){
@@ -254,14 +185,8 @@ public class JAcqua {
     }
 
     /**
-     @brief Il metodo ritorna la direzione di uscita della acqua
+     Il metodo ritorna la direzione di uscita della acqua
      Il metodo dice in che direzione (Destra,Dinistra,Sotto,Sopra,NONE) l' acqua sta uscendo.
-     
-     @paran altezzaDaSuperare l'altezza dopo la quale l' acqua esce
-     @return Directions Rappresenta la direzione di uscita. Se e' uguale a NONE, significa che non sta uscendo.
-     
-     @author  Buccheri Federico
-     @version 1.0
     */
     public Directions direzioneDiUscitaacqua(int altezzaDaSuperare){
         Directions direzione = Directions.NONE;//Inizialmente non esce niente
@@ -286,13 +211,8 @@ public class JAcqua {
     }
     
     /**
-     @brief Il metodo permette di disegnare l' acqua sulla tavola da disegno
+     Il metodo permette di disegnare l' acqua sulla tavola da disegno
      Utilizzando l'attributo processingSketch, il metodo disegna in corrispondenza della vasca l' acqua presente.
-     
-     @paran vasca la vasca di appartenenza
-     
-     @author  Buccheri Federico
-     @version 1.0
     */
     public void visualizza(vasca vasca){
         //TODO 
@@ -307,72 +227,43 @@ public class JAcqua {
     //GET e SET DELLA CLASSE
     
     /**
-     @brief Il metodo permette di ottenere il valore dell'attributo movimentoX
-     
-     @return movimentoX valore dell'attributo movimentoX della classe
-     
-     @author  Buccheri Federico
-     @version 1.0
+     Il metodo permette di ottenere il valore dell'attributo movimentoX 
+     movimentoX valore dell'attributo movimentoX della classe
     */
     public float getMovimentoX() {
         return movimentoX;
     }
     
     /**
-     @brief Il metodo permette di ottenere il valore dell'attributo quantitaacqua
-     
-     @return quantitaacqua valore dell'attributo quantitaacqua della classe
-     
-     @author  Buccheri Federico
-     @version 1.0
+     Il metodo permette di ottenere il valore dell'attributo quantitaacqua
     */
     public float getQuantita() {
         return quantitaacqua;
     }
     
     /**
-     @brief Il metodo permette di ottenere il valore dell'attributo velocita
-     
-     @return velocita valore dell'attributo velocita della classe
-     
-     @author  Buccheri Federico
-     @version 1.0
+     Il metodo permette di ottenere il valore dell'attributo velocita
     */
     public float getVelocita() {
         return velocita;
     }
 
     /**
-     @brief Il metodo permette di ottenere il valore dell'attributo altezzaLatoMaggiore
-     
-     @return altezzaLatoMaggiore valore dell'attributo altezzaLatoMaggiore della classe
-     
-     @author  Buccheri Federico
-     @version 1.0
+     Il metodo permette di ottenere il valore dell'attributo altezzaLatoMaggiore
     */
     public float getAltezzaLatoMaggiore() {
         return altezzaLatoMaggiore;
     }
     
     /**
-     @brief Il metodo permette di ottenere il valore dell'attributo altezzaLatoMinore
-     
-     @return altezzaLatoMinore valore dell'attributo altezzaLatoMinore della classe
-     
-     @author  Buccheri Federico
-     @version 1.0
+     Il metodo permette di ottenere il valore dell'attributo altezzaLatoMinore
     */
     public float getAltezzaLatoMinore() {
         return altezzaLatoMinore;
     }
     
     /**
-     @brief Il metodo permette di ottenere il toString della classe
-     
-     @return string stringa contenenti alcune informazioni importanti della classe
-     
-     @author  Buccheri Federico
-     @version 1.0
+     Il metodo permette di ottenere il toString della classe
     */
     public String toString(){
         return "Lato maggiore: "+altezzaLatoMaggiore+"\nLato minore: "+altezzaLatoMinore+"\nQuantita' acqua: "+altezzaLatoMinore+"\nMovimentoX: "+movimentoX+"\n---------";
