@@ -1,3 +1,5 @@
+package barchettevasche;
+
 import java.awt.Color;
 import java.awt.Point;
 import processing.core.PApplet;
