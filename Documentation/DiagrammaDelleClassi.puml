@@ -2,7 +2,7 @@
 
 class DatiCondivisi{
     	/'Indica le vasche presenti'/
-  	 	-Vasca[] vasche
+  	 	-Vector vasche
 
     	/'Indica il numero massimo di vasche che si possono posizionare in orizzontale'/
   	  	-int width
@@ -30,15 +30,15 @@ class DatiCondivisi{
 }
 
 
-class thVasca{
-    	/'Inclinazione della vasca'/
-   	 	-float inclinazioneX
-    		-float inclinazioneY
+classVasca{
 
-    	/'Indica la profondit‡ della vasca'/
+	/'Inclinazione della vasca'/
+   	 	-float inclinazioneX
+
+    	/'Indica la profondit√† della vasca'/
    	 	-float profondita
 
-    	/'Indica líacqua presente nella vasca'/
+    	/'Indica l‚Äôacqua presente nella vasca'/
    	 	-Acqua acquaPresente
 
     	/'Rappresenta la barca presente nella vasca'/
@@ -47,11 +47,12 @@ class thVasca{
 
     	/'Indica la posizione della vasca nel piano di gioco'/
    	 	-posizione posizioneVasca
+	
 
-
-    	/'Metodo che permette di visualizzare la vasca visualizzando anche líacqua e la barca'/
+    	/'Metodo che permette di visualizzare la vasca visualizzando anche l‚Äôacqua e la barca'/
     		+visualizzaVasca()
-
+		
+		+setInclinazioneX();
     	/'Metodo che permette di simulare un movimento  
     	della scatola richiamando aggiornamento Acqua, poi aggiornamento Pallina e 
     	successivamento visualizzazione Vasca'/
@@ -59,34 +60,23 @@ class thVasca{
 
 
     	/'Metodo che permette di aggiornare la posizione della barca all'interno della scatola
-    	a seconda della velocit‡ dellíacqua'/
+    	a seconda della velocit√† dell‚Äôacqua'/
    	 	+aggiornaPosBarca()
 
-   	/'Metodo che permette di aggiornare l'altezza e la velocit‡ dellíacqua 
+   	/'Metodo che permette di aggiornare l'altezza e la velocit√† dell‚Äôacqua 
     	nella parte destra e sinistra della vasca in base ai gradi di inclinazione di essa'/
     		+aggiornaDistribuzioneVelocitaAcqua()
+}
+
+class thRefresh{
+    	
 
 }
 
-class Posizione{
-    	/'Indica la posizione X dell'elemento sullo schermo'/
-    		-float X
+class thVasca{
+    	
 
-    	/'Indica la posizione Y dell'elemento sullo schermo'/
-   	 	-float Y
-
-    	/'Indica la posizione Z dell'elemento sullo schermo'/
-   	 	-float Z
-
-    	/'Metodo che permette di impostare gli attributi in base all'oggetto posizione 
-    	passato come parametro'/
-   	 	+copiaDa(posizione nuovaPosizioneDaCopiare)
-
-   	/'Metodo che restituisce true se l'oggetto Ë in mezzo alla vasca passata
-    	come parametro o restituisce false se non e' in mezzo'/
-    		+boolean sonoInMezzo(Vasca vascaRif)
 }
-
 
 
 class Acqua{
@@ -96,22 +86,22 @@ class Acqua{
     	/'Indica il valore di altezza della acqua nella parte destra della scatola'/
     		-float altezzaDx
 
-    	/'Indica la velocita' dellíacqua/
+    	/'Indica la velocita' dell‚Äôacqua/
    	 	-float velocitaDiSpostamento
 
     	/'Indica la quantita' di acqua presente nella vasca'/
-    		-float quantita
+    		-Color quantita
 
-	/íIn base alla profondit‡ cíË un diverso colore dellíacqua nella vasca'/
-  	 	-float profondit‡ 
+	/‚ÄôIn base alla profondit√† c‚Äô√® un diverso colore dell‚Äôacqua nella vasca'/
+  	 	-float profondit√† 
 
 
 
-    	/'Metodo che permette di aggiornare l'inclinazione dellíacqua
+    	/'Metodo che permette di aggiornare l'inclinazione dell‚Äôacqua
      dell'altezza di destra e di sinistra della scatola passati come parametro'/
     		+aggiorna(float altezzaDx, float altezzaSx)
 
-    	/'Metodo che permette di visualizzare líAcqua/
+    	/'Metodo che permette di visualizzare l‚ÄôAcqua/
    		+visualizzaAcqua()
 
     	/'Metodo che permette di reimpostare tutti gli attributi ai valori iniziali'/
@@ -120,9 +110,10 @@ class Acqua{
 }
 
 class Barca{
-    	/'Indica la posizione nella scatola dove e' presente la pallina'/
-    		-posizione posizioneBarca
-
+    	/'Indica la posizione nella vasca dove e' presente la barca'/
+		-Point pos
+	/' Indeica la dimensione della barca dimensione*dimensione'/
+		-float dimensione
    	/'Indica il colore della barca'/
    	 	-String colore
 
@@ -132,7 +123,7 @@ class Barca{
     	/'Indica la velocita' di spostamento della barca se e' in movimento'/
     		-float velocitaDiSpostamento
 
-    	/'Indica se la pallina e' visibile e soprattutto presente nella scatola'/
+    	/'Indica se la barca e' visibile e soprattutto presente nella scatola'/
     		-boolean BarcaPresente
 
 
@@ -144,7 +135,7 @@ class Barca{
     		+rimuovi()
 
   	 /'Metodo che sposta la barca nella vasca'/
-   		 +sposta(posizione newPosizione)
+   		 +sposta(Point a)
 
     	/'Metodo che permette di reimpostare tutti gli attributi ai valori iniziali'/
    		 +reset()
@@ -152,28 +143,11 @@ class Barca{
 
 
 
-class Output{
-/'Rappresenta il percorso dell'immagine che verr‡ visualizzata'/
-		-String sourceImg
-
-
-	/'Metodo che permette di disegnare un trapezio con colore'/
-		+disegnaTrapezio(String colore)
-
-	/'Metodo che permette di rappresentare sullo schermo del dispositivo l'immagine presente nel percorso ìsourceImg (attributo)î, nella posizione p passata come parametro'/
-		+disegnaImmagine(Posizione p)
-}
-
 
 class Input{
-	/'Rappresenta il valore di input letto dalla tastiera'/
+	/'Rappresenta il valore di input letto dalla tastiera scrivi a inclina sx scrivi d inclina dx'/
 		-Character inputTastiera
 
-	/'Rappresenta il valore di input letto da Arduino'/
-		-Character inputArduino
-
-	/'Rappresenta il valore di input letto dal Bluetooth'/
-		-Character inputBluetooth
 
 	/'Rappresenta i valori di input letto dall'accelerometro'/
 		-int AccX
@@ -184,24 +158,9 @@ class Input{
 
 
 	/'Metodo che permette di leggere il valore di input dalla tastiera e aggiornare
-	di conseguenza l'attributo ìinputTastieraî della classe'/
+	di conseguenza l'attributo ‚ÄúinputTastiera‚Äù della classe'/
 		+leggiDaTastiera()
 
-	/'Metodo che permette di leggere il valore di input dall'Arduino e aggiornare
-	di conseguenza l'attributo ìinputArduinoî della classe'/
-		+leggiDaArduino()
-
-	/'Metodo che permette di leggere il valore di input dal Bluetooth e aggiornare
-	di conseguenza l'attributo ìinputBluetoothî della classe'/
-		+leggiDaBluetooth()
-
-	/'Metodo che permette di leggere il valore di input dallíaccelerometro e aggiornare
-	di conseguenza gli attributi dellí accelerometro della classe'/
-		+leggiValoreAccelerometro()
-
-	/'Metodo che permette di leggere il valore di input dal Dispositivo e aggiornare
-	di conseguenza l'attributo dispositivo della classe'/
-		+leggiValoreDispositivo()
 }
 @enduml
 
