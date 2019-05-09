@@ -27,7 +27,7 @@ public class Vasca {
     private Point posizione;
 
     //Rappresenta l'acqua presente nella scatola
-    private Acqua acquaPresente;
+    private JAcqua acquaPresente;
 
     //Rappresenta la barca presente nella vasca
     private JBarca barca;
@@ -40,7 +40,7 @@ public class Vasca {
 
         posizione = new Point(200, 200);
 
-        acquaPresente = new Acqua();
+        acquaPresente = new JAcqua();
         barca = new JBarca(this.processingSketch, this.posizione);
         barca.mostraBarca();
     }
@@ -50,7 +50,7 @@ public class Vasca {
         dimensioni = new Box();
         this.posizione = posizione;
         Random rn = new Random();
-        acquaPresente = new Acqua(rn.nextInt(40), processingSketch);
+        acquaPresente = new JAcqua(rn.nextInt(40), processingSketch);
         dimensioni.setWidth(100);
         dimensioni.setDepth(100);
         inclinazioneX = 0;
@@ -61,7 +61,7 @@ public class Vasca {
 
     }
 
-    public Vasca(PApplet processingSketch, Box dimensioni, Point posizione, Acqua acquaPresente, JBarca barca) {
+    public Vasca(PApplet processingSketch, Box dimensioni, Point posizione, JAcqua acquaPresente, JBarca barca) {
         this.processingSketch = processingSketch;
         this.posizione = posizione;
         this.barca = barca;
@@ -128,7 +128,7 @@ public class Vasca {
         return inclinazioneY;
     }
 
-    public Acqua getAcquaPresente() {
+    public JAcqua getAcquaPresente() {
         return acquaPresente;
     }
 
@@ -183,7 +183,7 @@ public class Vasca {
         } else if (barca.getPosizione().y > dimensioni.getDepth()) {
             return Direzioni.SOTTO;
         }
-        return Direzioni.NONE;
+        return Direzioni.NO;
     }
 
     public void draw() {
