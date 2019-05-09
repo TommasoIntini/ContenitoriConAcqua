@@ -1,3 +1,5 @@
+package barchettevasche;
+
 import java.awt.Point;
 import javafx.scene.shape.Box;
 import javax.swing.text.Position;
