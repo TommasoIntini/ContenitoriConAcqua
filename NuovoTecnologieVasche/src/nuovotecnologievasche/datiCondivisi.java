@@ -11,11 +11,11 @@ import processing.core.PApplet;
 
 /**
  *
- * @author Tommaso
+ * @author Tommaso 
  */
 public class datiCondivisi {
 
-    private Vasca vasche = null;
+    private Vasca vasca1, vasca2 = null;
     private Acqua acqua = null;
     private Barca barca = null;
 
@@ -32,12 +32,16 @@ public class datiCondivisi {
     
     private static final int spostamentoAcqua = 20;
 
-    public datiCondivisi(int nScatoleOrizzontali, int nScatoleVerticali,
-            PApplet processingSketch) {
-        l = nScatoleOrizzontali * 100;
-        la = nScatoleVerticali * 70;
+    public datiCondivisi(int lunghezza, int larghezza, PApplet processingSketch) {
+        
+        l=lunghezza;
+        la=larghezza;
 
-        vasche = new Vasca(this, processingSketch, l, la, posDraw);
+        vasca1 = new Vasca(this, processingSketch, l, la, posDraw);
+        
+        Point posiz = new Point(posDraw.x+l,posDraw.y);
+        
+        vasca2 = new Vasca(this, processingSketch, l, la, posiz);
 
         acqua = new Acqua(this, processingSketch, l, la, posDraw);
 
@@ -55,26 +59,6 @@ public class datiCondivisi {
     public int getSpostamentoAcqua()
     {
         return spostamentoAcqua;
-    }
-
-    public void arComincia() {
-        
-        in = null;
-        
-        vasche = new Vasca(this, processingSketch, l, la, posDraw);
-
-        acqua = new Acqua(this, processingSketch, l, la, posDraw);
-
-        Point posBarca = new Point(posDraw.x + (l / 2), posDraw.y + (la / 2));
-
-        barca = new Barca(this, processingSketch, posBarca);
-
-        incX = 0;
-        incY = 0;
-        in = new thInput(this);
-
-        in.start();
-
     }
 
     public int getLarghezzaVasca() {
@@ -140,14 +124,6 @@ public class datiCondivisi {
                 break;
         }
 
-        if (acqua.fuoriTutta()) {
-            in.interrupt();
-        }
-        if (barca.fuoriAcqua(acqua)) //mettodi vuoti da completare
-        {
-            barca.spostaInAcqua();
-        }
-
     }
 
     public Acqua getAcqua() {
@@ -156,7 +132,8 @@ public class datiCondivisi {
 
     public void drawTutto() {
         acqua.draw();
-        vasche.draw();
+        vasca1.draw();
+        vasca2.draw();
         barca.draw();
 
     }

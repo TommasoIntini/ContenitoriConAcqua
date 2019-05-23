@@ -17,9 +17,9 @@ public class Acqua {
     private datiCondivisi ptrDati;
     private PApplet processingSketch;
 
-    private int rosso = 15;
-    private int verde = 125;
-    private int blu = 255;
+    //private int rosso = 15;
+    //private int verde = 125;
+    //private int blu = 255;
     private int lunghezza;
     private int larghezza;
 
@@ -32,15 +32,6 @@ public class Acqua {
 
     }
 
-    public boolean fuoriTutta() {
-        if (rosso == 255 && verde == 255) {
-            return true;
-        } else if (lunghezza == 0 || larghezza == 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     public Acqua(datiCondivisi ptrDati, PApplet process, int lunghezza,
             int larghezza, Point pos) {
@@ -61,22 +52,12 @@ public class Acqua {
         } else if ((pos.x + lunghezza - ptrDati.getSpostamentoAcqua()) < pos.x) {
             lunghezza = 0;
         } else {
-            cambiaProfondita();
             lunghezza -= ptrDati.getSpostamentoAcqua();
             ptrDati.decIncX();
         }
     }
 
-    public void cambiaProfondita() {
-        if (rosso < 255) {
-            rosso += 10;
 
-        }
-
-        if (verde < 255) {
-            verde += 10;
-        }
-    }
 
     public void inclinaDx() {
         if (ptrDati.getInclinazioneX() < 0) {
@@ -86,7 +67,6 @@ public class Acqua {
             spostamentoX = pos.x + ptrDati.getLarghezzaVasca();
             lunghezza = 0;
         } else {
-            cambiaProfondita();
             spostamentoX += ptrDati.getSpostamentoAcqua();
             lunghezza -= ptrDati.getSpostamentoAcqua();
             ptrDati.incIncX();
@@ -102,7 +82,6 @@ public class Acqua {
         } else if ((pos.y + larghezza - ptrDati.getSpostamentoAcqua()) < pos.y) {
             larghezza = 0;
         } else {
-            cambiaProfondita();
             larghezza -= ptrDati.getSpostamentoAcqua();
             ptrDati.decIncY();
         }
@@ -116,7 +95,6 @@ public class Acqua {
             spostamentoY = pos.y + ptrDati.getAltezzaVasca();
             larghezza = 0;
         } else {
-            cambiaProfondita();
             ptrDati.incIncY();
             spostamentoY += ptrDati.getSpostamentoAcqua();
             larghezza -= ptrDati.getSpostamentoAcqua();
@@ -124,7 +102,7 @@ public class Acqua {
     }
 
     public void draw() {
-        processingSketch.fill(rosso, verde, blu);
+        processingSketch.fill(15, 125, 255);
         processingSketch.noStroke();
 
         processingSketch.rect(spostamentoX, spostamentoY, lunghezza, larghezza);
