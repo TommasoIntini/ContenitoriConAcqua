@@ -20,7 +20,7 @@ public class NuovoTecnologieVasche extends PApplet{
     
     public NuovoTecnologieVasche()
     {
-        dati = new datiCondivisi(150,150,this);
+        dati = new datiCondivisi(150,150,2,this);
         
     }
     public static void main(String[] args) {

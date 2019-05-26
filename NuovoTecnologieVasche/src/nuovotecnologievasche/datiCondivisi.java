@@ -11,12 +11,12 @@ import processing.core.PApplet;
 
 /**
  *
- * @author Tommaso 
+ * @author Tommaso
  */
 public class datiCondivisi {
 
     private Vasca vasca1, vasca2 = null;
-    private Acqua acqua = null;
+    private Vector<Vasca> vasche;
     private Barca barca = null;
 
     private PApplet processingSketch = null;
@@ -29,21 +29,24 @@ public class datiCondivisi {
 
     private int l;
     private int la;
-    
+
     private static final int spostamentoAcqua = 20;
 
-    public datiCondivisi(int lunghezza, int larghezza, PApplet processingSketch) {
-        
-        l=lunghezza;
-        la=larghezza;
+    public datiCondivisi(int lunghezza, int larghezza, int nVasche, PApplet processingSketch) {
 
-        vasca1 = new Vasca(this, processingSketch, l, la, posDraw);
-        
-        Point posiz = new Point(posDraw.x+l,posDraw.y);
-        
-        vasca2 = new Vasca(this, processingSketch, l, la, posiz);
+        int x = posDraw.x;
+        int y = posDraw.y;
 
-        acqua = new Acqua(this, processingSketch, l, la, posDraw);
+        vasche = new Vector<Vasca>();
+        l = lunghezza;
+        la = larghezza;
+
+        for (int i = 0; i < nVasche; i++) {
+            vasche.add(new Vasca(this, processingSketch, l, la, new Point(x, y), i));
+            x += l;
+        }
+
+        Point posiz = new Point(posDraw.x + l, posDraw.y);
 
         Point posBarca = new Point(posDraw.x + (l / 2), posDraw.y + (la / 2));
 
@@ -55,9 +58,8 @@ public class datiCondivisi {
 
         in.start();
     }
-    
-    public int getSpostamentoAcqua()
-    {
+
+    public int getSpostamentoAcqua() {
         return spostamentoAcqua;
     }
 
@@ -101,23 +103,36 @@ public class datiCondivisi {
     {
         switch (direzione) {
             case 'a':
-            case 'A':                
-                acqua.inclinaSx();
+            case 'A':
+                incX--;
+                for (int i = 0; i < vasche.size(); i++) {
+                    vasche.elementAt(i).inclinaSx();
+                }
+
                 barca.spostaSx();
                 break;
             case 'd':
             case 'D':
-                acqua.inclinaDx();
+                incX++;
+                for (int i = 0; i < vasche.size(); i++) {
+                    vasche.elementAt(i).inclinaDx();
+                }
                 barca.spostaDx();
                 break;
             case 'w':
             case 'W':
-                acqua.inclinaUp();
+                incY--;
+                for (int i = 0; i < vasche.size(); i++) {
+                    vasche.elementAt(i).inclinaUp();
+                }
                 barca.spostaUp();
                 break;
             case 's':
             case 'S':
-                acqua.inclinaDw();
+                incX++;
+                for (int i = 0; i < vasche.size(); i++) {
+                    vasche.elementAt(i).inclinaDw();
+                }
                 barca.spostaDw();
                 break;
             default:
@@ -126,14 +141,11 @@ public class datiCondivisi {
 
     }
 
-    public Acqua getAcqua() {
-        return acqua;
-    }
 
     public void drawTutto() {
-        acqua.draw();
-        vasca1.draw();
-        vasca2.draw();
+        for (int i = 0; i < vasche.size(); i++) {
+            vasche.elementAt(i).draw();
+        }
         barca.draw();
 
     }
