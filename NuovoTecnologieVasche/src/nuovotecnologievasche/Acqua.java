@@ -28,91 +28,153 @@ public class Acqua {
 
     private Point pos;
 
-    public Acqua(PApplet process, int lunghezza,
-            int larghezza, Point pos) {
-        this.ptrDati = null;
+//    public Acqua(datiCondivisi ptrDati,PApplet process, int lunghezza,
+//            int larghezza, Point pos) {
+//        this.ptrDati = ptrDati;
+//        this.processingSketch = process;
+//        this.lunghezza = lunghezza;
+//        this.larghezza = larghezza;
+//        this.pos = pos;
+//        spostamentoX = pos.x;
+//        spostamentoY = pos.y;
+//    }
+    public int getLunghezza() {
+        return lunghezza;
+    }
+
+    public int getLarghezza() {
+        return larghezza;
+    }
+
+    public Acqua(datiCondivisi ptrDati, PApplet process, int lunghezza,
+            int larghezza, Point pos, int lVasca) {
+        this.ptrDati = ptrDati;
         this.processingSketch = process;
         this.lunghezza = lunghezza;
         this.larghezza = larghezza;
+
         this.pos = pos;
         spostamentoX = pos.x;
         spostamentoY = pos.y;
+
+        pos.x -= lunghezza;
+
     }
-    public int getLunghezza()
-    {
-        return lunghezza;
-    }
-    public int getLarghezza()
-    {
-        return larghezza;
-    }
+
     public Acqua(datiCondivisi ptrDati, PApplet process, int lunghezza,
             int larghezza, Point pos) {
         this.ptrDati = ptrDati;
         this.processingSketch = process;
         this.lunghezza = lunghezza;
         this.larghezza = larghezza;
+
         this.pos = pos;
         spostamentoX = pos.x;
         spostamentoY = pos.y;
+
     }
 
-//    public void inclinaSx() {
-//        if (ptrDati.getInclinazioneX() > 0) {
-//            spostamentoX -= ptrDati.getSpostamentoAcqua();
-//            lunghezza += ptrDati.getSpostamentoAcqua();
-//            ptrDati.decIncX();
-//        } else if ((pos.x + lunghezza - ptrDati.getSpostamentoAcqua()) < pos.x) {
-//            lunghezza = 0;
-//        } else {
-//            lunghezza -= ptrDati.getSpostamentoAcqua();
-//            ptrDati.decIncX();
-//        }
-//    }
-//
-//
-//
-//    public void inclinaDx() {
-//        if (ptrDati.getInclinazioneX() < 0) {
-//            lunghezza += ptrDati.getSpostamentoAcqua();
-//            ptrDati.incIncX();
-//        } else if ((spostamentoX + ptrDati.getSpostamentoAcqua()) >= (pos.x + ptrDati.getLarghezzaVasca())) {
-//            spostamentoX = pos.x + ptrDati.getLarghezzaVasca();
-//            lunghezza = 0;
-//        } else {
-//            spostamentoX += ptrDati.getSpostamentoAcqua();
-//            lunghezza -= ptrDati.getSpostamentoAcqua();
-//            ptrDati.incIncX();
-//        }
-//
-//    }
-//
-//    public void inclinaUp() {
-//        if (ptrDati.getInclinazioneY() > 0) {
-//            spostamentoY -= ptrDati.getSpostamentoAcqua();
-//            larghezza += ptrDati.getSpostamentoAcqua();
-//            ptrDati.decIncY();
-//        } else if ((pos.y + larghezza - ptrDati.getSpostamentoAcqua()) < pos.y) {
-//            larghezza = 0;
-//        } else {
-//            larghezza -= ptrDati.getSpostamentoAcqua();
-//            ptrDati.decIncY();
-//        }
-//    }
-//
-//    public void inclinaDw() {
-//        if (ptrDati.getInclinazioneY() < 0) {
-//            larghezza += ptrDati.getSpostamentoAcqua();
-//            ptrDati.incIncY();
-//        } else if ((spostamentoY + ptrDati.getSpostamentoAcqua()) > (pos.y + ptrDati.getAltezzaVasca())) {
-//            spostamentoY = pos.y + ptrDati.getAltezzaVasca();
-//            larghezza = 0;
-//        } else {
-//            ptrDati.incIncY();
-//            spostamentoY += ptrDati.getSpostamentoAcqua();
-//            larghezza -= ptrDati.getSpostamentoAcqua();
-//        }
-//    }
+    public int getSpostamentoX() {
+        if (ptrDati.getInclinazioneX() < 0) {
+            return ptrDati.getInclinazioneX() * -1;
+        } else {
+            return ptrDati.getInclinazioneX();
+        }
+
+    }
+
+    public void spawnDx(int lVasca) {
+
+        int spostamentoTemp = getSpostamentoX();
+
+        spostamentoX -= spostamentoTemp;
+        lunghezza += spostamentoTemp;
+
+        if ((pos.x + lunghezza - spostamentoTemp) < pos.x) {
+            lunghezza = lVasca;
+        }
+
+    }
+
+    public void spawnSx(int lVasca) {
+
+        int spostamentoTemp = getSpostamentoX();
+
+        lunghezza += spostamentoTemp;
+
+    }
+
+
+    public void inclinaSx() {
+        int spostamentoTemp = getSpostamentoX();
+
+        if (ptrDati.getInclinazioneX() > 0) {
+            spostamentoX -= spostamentoTemp;
+            lunghezza += spostamentoTemp;
+        } else if ((pos.x + lunghezza - spostamentoTemp) < pos.x) {
+            lunghezza = 0;
+        } else {
+            lunghezza -= spostamentoTemp;
+        }
+    }
+
+    public void inclinaDx() {
+        int spostamentoTemp = 0;
+        if (ptrDati.getInclinazioneX() < 0) {
+            spostamentoTemp = ptrDati.getInclinazioneX() * -1;
+        } else if (ptrDati.getInclinazioneX() > 0) {
+            spostamentoTemp = ptrDati.getInclinazioneX();
+        }
+
+        if (ptrDati.getInclinazioneX() < 0) {
+            lunghezza += spostamentoTemp;
+        } else if ((spostamentoX + spostamentoTemp) >= (pos.x + ptrDati.getLarghezzaVasca())) {
+            spostamentoX = pos.x + ptrDati.getLarghezzaVasca();
+            lunghezza = 0;
+        } else {
+            spostamentoX += spostamentoTemp;
+            lunghezza -= spostamentoTemp;
+        }
+
+    }
+
+    public void inclinaUp() {
+
+        int spostamentoTemp = 0;
+        if (ptrDati.getInclinazioneY() < 0) {
+            spostamentoTemp = ptrDati.getInclinazioneY() * -1;
+        } else if (ptrDati.getInclinazioneY() > 0) {
+            spostamentoTemp = ptrDati.getInclinazioneY();
+        }
+
+        if (ptrDati.getInclinazioneY() > 0) {
+            spostamentoY -= spostamentoTemp;
+            larghezza += spostamentoTemp;
+        } else if ((pos.y + larghezza - spostamentoTemp) < pos.y) {
+            larghezza = 0;
+        } else {
+            larghezza -= spostamentoTemp;
+        }
+    }
+
+    public void inclinaDw() {
+        int spostamentoTemp = 0;
+        if (ptrDati.getInclinazioneY() < 0) {
+            spostamentoTemp = ptrDati.getInclinazioneY() * -1;
+        } else if (ptrDati.getInclinazioneY() > 0) {
+            spostamentoTemp = ptrDati.getInclinazioneY();
+        }
+
+        if (ptrDati.getInclinazioneY() < 0) {
+            larghezza += spostamentoTemp;
+        } else if ((spostamentoY + spostamentoTemp) > (pos.y + ptrDati.getAltezzaVasca())) {
+            spostamentoY = pos.y + ptrDati.getAltezzaVasca();
+            larghezza = 0;
+        } else {
+            spostamentoY += spostamentoTemp;
+            larghezza -= spostamentoTemp;
+        }
+    }
 
     public void draw() {
         processingSketch.fill(15, 125, 255);
