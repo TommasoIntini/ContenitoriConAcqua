@@ -17,29 +17,16 @@ public class Acqua {
     private datiCondivisi ptrDati;
     private PApplet processingSketch;
 
-    //private int rosso = 15;
-    //private int verde = 125;
-    //private int blu = 255;
-    private int lunghezza;
+
+    private int lunghezza;  //rapprensentano la lunghezza e l'altezza, al momento ,dell'acqua
     private int larghezza;
 
-    private int spostamentoX;
-    private int spostamentoY;
-
+    private int spostamentoX;  //rappresenta la x reale dell'acqua(angolo altoSx) pos rappresenta l'angolo massimo raggiungibile, qindi l'angolo alto sinistro della vasca
+    private int spostamentoY; //questo no si usa
     private Point pos;
 
-    private int lVasca;
+    private int lVasca;   //rappresenta la lunghezza della vasca in cui deve stare l'acqua(lunghezza massima)
 
-//    public Acqua(datiCondivisi ptrDati,PApplet process, int lunghezza,
-//            int larghezza, Point pos) {
-//        this.ptrDati = ptrDati;
-//        this.processingSketch = process;
-//        this.lunghezza = lunghezza;
-//        this.larghezza = larghezza;
-//        this.pos = pos;
-//        spostamentoX = pos.x;
-//        spostamentoY = pos.y;
-//    }
     public int getLunghezza() {
         return lunghezza;
     }
@@ -79,21 +66,16 @@ public class Acqua {
 
     }
 
-    public void appiattisci()
-    {       
-        lunghezza = lVasca;
-        spostamentoX = pos.x;
-    }
-    public int getSpostamentoX() {
+    public int getSpostamentoX() { //ritorna la x altaSx dell'acqua
         return spostamentoX;
     }
 
-    public Point getPos() {
+    public Point getPos() {  
         return pos;
     }
 
-    public void spostaDx() {
-        int temp = (pos.x+lVasca)-lunghezza;
+    public void spostaDx() {            //non ancora usati, perche conettualmente abagliati
+        int temp = (pos.x+lVasca)-lunghezza; 
         spostamentoX+= temp;
     }
 
@@ -101,28 +83,28 @@ public class Acqua {
         spostamentoX = pos.x;
     }
 
-    public void spawnDx(int lVasca) {
+    public void spawnDx() {   //spunta l'acqua da Dx verso Sx 
 
-        int spostamentoTemp = ptrDati.getSpostamentoX();
+        int spostamentoTemp = ptrDati.getSpostamentoX();  //prende l'incX positiva
 
-        if (spostamentoX == pos.x) {
-            spostamentoX = pos.x + lVasca;
-            spostamentoX -= spostamentoTemp;
+        if (spostamentoX == pos.x) { //se la posizione dell'acqua è in alto a sinistra della vasca
+            spostamentoX = pos.x + lVasca;  
+            spostamentoX -= spostamentoTemp;    //la imposta sullo spigolo destro in modo
             lunghezza += spostamentoTemp;
-        } else {
-            spostamentoX -= spostamentoTemp;
-            lunghezza += spostamentoTemp;
+        } else {                    // altimenti, se è sullo spigolo destro
+            spostamentoX -= spostamentoTemp;   //sposta la x di spostamentoTemp(incX)
+            lunghezza += spostamentoTemp;    //e incrementa la lunghezza dello stesso valore
         }
 
-        if ((pos.x + lunghezza - spostamentoTemp) < pos.x) {
+        if ((pos.x + lunghezza - spostamentoTemp) < pos.x) {  //Se raggiunge la lunghezza della vasca la lunghezza dell'acqua è uguale a quella della vasca
             lunghezza = lVasca;
         }
 
     }
 
-    public void spawnSx(int lVasca) {
+    public void spawnSx() {   //come spawnDx ma da Sx
         int spostamentoTemp = ptrDati.getSpostamentoX();
-        if (spostamentoX == pos.x + lVasca) {
+        if (spostamentoX == pos.x + lVasca) {  //
 
             spostamentoX = pos.x;
             lunghezza += spostamentoTemp;
@@ -136,20 +118,20 @@ public class Acqua {
 
     }
 
-    public void inclinaSx() {
+    public void inclinaSx() {  
         int spostamentoTemp = ptrDati.getSpostamentoX();
 
-        if (ptrDati.getInclinazioneX() > 0) {
-            spostamentoX -= spostamentoTemp;
+        if (ptrDati.getInclinazioneX() > 0) {  //se si stava inclinando a destra
+            spostamentoX -= spostamentoTemp;  //non credo entri mai qua dentro       :))
             lunghezza += spostamentoTemp;
-        } else if ((pos.x + lunghezza - spostamentoTemp) < pos.x) {
-            lunghezza = 0;
+        } else if ((pos.x + lunghezza - spostamentoTemp) < pos.x) {  //se l'acqua va tutta a sinistra
+            lunghezza = 0;              //la lunghezza diventa 0 ricorda che loSpostamentoX è l'effettiva x
         } else {
-            lunghezza -= spostamentoTemp;
+            lunghezza -= spostamentoTemp;     //se l'acqua deve andare a sinistra solosi diminusice
         }
     }
 
-    public void inclinaDx() {
+    public void inclinaDx() {               
         int spostamentoTemp = ptrDati.getSpostamentoX();
 
         if (ptrDati.getInclinazioneX() < 0) {

@@ -15,11 +15,11 @@ import processing.core.PApplet;
  */
 public class datiCondivisi {
 
-    private Vasca vasca1, vasca2 = null;
     private Vector<Vasca> vasche;
     private Barca barca = null;
 
     private PApplet processingSketch = null;
+
     private thInput in = null;
     private thAcqua ac = null;
 
@@ -58,6 +58,11 @@ public class datiCondivisi {
         incY = 0;
         in = new thInput(this);
 
+        startTh();
+
+    }
+
+    public void startTh() {
         ac.start();
         in.start();
     }
@@ -102,9 +107,9 @@ public class datiCondivisi {
         return incY;
     }
 
-    public synchronized void hoInclinato(char direzione)//per semplificare si muove solo l'acqua, il contenitore sta fermo ma è come se si muovesse
+    public synchronized void hoInclinato(char direzione)//incrementa l'inclinazione, fa in modo che non si superi inclinazione 4
     {
-        switch (direzione) {
+        switch (direzione) {                        //in base all'inclinazione l'acqua diminuisce durante l'inclinazione
             case 'a':
             case 'A':
                 if (incX >= -4) {
@@ -117,34 +122,13 @@ public class datiCondivisi {
                     incX++;
                 }
                 break;
-            case 'w':
-            case 'W':
-                if (incY >= -4) {
-                    incY--;
-                }
-                break;
-            case 's':
-            case 'S':
-                if (incY <= 4) {
-                    incY++;
-                }
-                break;
             default:
                 break;
         }
 
     }
 
-//    public void setPienaPrimaVascaOrizzontaleConAcqua() {
-//        for (int i = 0; i < vasche.size(); i++) {
-//            if (vasche.elementAt(i).acquaPresente()) {
-//                vasche.elementAt(i).setAcqua(true);
-//            } else {
-//                vasche.elementAt(i).setAcqua(false);
-//            }
-//        }
-//    }
-    public int getIndexPrimaPiena() {
+    public int getIndexPrimaPiena() {   //ritorna l'indice della vasca da cui defluisce l'acqua
         int temp = 0;
         for (int i = 0; i < vasche.size(); i++) {
             if (vasche.elementAt(i).getStatoAcqua()) {
@@ -154,7 +138,7 @@ public class datiCondivisi {
         return temp;
     }
 
-    public boolean stavoInclinandoASinistra() {
+    public boolean stavoInclinandoASinistra() {   //Se si stava inclinando a sinistra restituisce true
         int index = getIndexPrimaPiena();
         if (vasche.elementAt(index).getSpostamentoAcquaX() == vasche.elementAt(index).getPosAcqua().x) {
             return true;
@@ -164,7 +148,7 @@ public class datiCondivisi {
 
     }
 
-    public boolean stavoInclinandoADestra() {
+    public boolean stavoInclinandoADestra() {   //Se si stava inclinando destra restituisce true
         int index = getIndexPrimaPiena();
         if (vasche.elementAt(index).getSpostamentoAcquaX() >= vasche.elementAt(index).getPosAcqua().x) {
             return true;
@@ -174,28 +158,28 @@ public class datiCondivisi {
 
     }
 
-    public synchronized void inclinazioneX() {
+    public synchronized void inclinazioneX() {   //metodo principale, viene richiamato dal thAcqua ogni volta che l'attributo incX è diverso da 0
         try {
             if (incX > 0)//inclina a dx
             {
-                if (stavoInclinandoADestra()) {
-                    for (int i = 0; i < vasche.size(); i++) {
-                        if (vasche.elementAt(i).getStatoAcqua()) {
-                            vasche.elementAt(i).inclinaDx();
 
-                            vasche.elementAt(i + 1).spawnDx();
+                for (int i = 0; i < vasche.size(); i++) {    //per tutte le vasche
+                    if (vasche.elementAt(i).getStatoAcqua()) {   //se la vasca i è quella che si deve svuotare
+                        vasche.elementAt(i).inclinaDx();       //inclina a derstra
 
-                            if (vasche.elementAt(i + 1).vascaPiena()) { //se la vasca successiva è piena 
-                                vasche.elementAt(i).setAcqua(false);
-                                vasche.elementAt(i + 1).setAcqua(true);
-                            }
+                        vasche.elementAt(i + 1).spawnDx();   //e spawna acqua sulla destra della vasca adiacente
 
+                        if (vasche.elementAt(i + 1).vascaPiena()) { //se la vasca successiva è piena 
+                            vasche.elementAt(i).setAcqua(false);   //setta la vasca successiva come quella da svuotare
+                            vasche.elementAt(i + 1).setAcqua(true);
                         }
 
-                        barca.spostaDx();
                     }
+
+                    barca.spostaDx();
+
 //                } else {
-//                    for (int i = 0; i < vasche.size(); i++) {
+//                    for (int i = 0; i < vasche.size(); i++) {    //cose sbagliate concettualmente per quando viene cambiata l'inclinazione
 //                        if (vasche.elementAt(i).acquaPresente()) {
 //                            vasche.elementAt(i).spostaAcquaSullaDestra();
 //                        }
@@ -213,26 +197,25 @@ public class datiCondivisi {
 //
 //                    vasche.elementAt(getIndexPrimaPiena()).setAcqua(true);
 //                }
+                }
+            } else if (incX < 0) {
 
-                } else if (incX < 0) {
+                for (int i = 0; i < vasche.size(); i++) {
+                    if (vasche.elementAt(i).getStatoAcqua()) {
+                        vasche.elementAt(i).inclinaSx();
 
-                    if (stavoInclinandoASinistra()) {
-                        for (int i = 0; i < vasche.size(); i++) {
-                            if (vasche.elementAt(i).getStatoAcqua()) {
-                                vasche.elementAt(i).inclinaSx();
-
-                                vasche.elementAt(i - 1).spawnSx();
-                                //vasche.elementAt(i+1).spawnSx();
-                                if (vasche.elementAt(i - 1).vascaPiena()) { //se la vasca successiva è piena 
-                                    vasche.elementAt(i).setAcqua(false);
-                                    vasche.elementAt(i - 1).setAcqua(true);
-                                }
-
-                            }
-                            barca.spostaSx();
+                        vasche.elementAt(i - 1).spawnSx();
+                        //vasche.elementAt(i+1).spawnSx();
+                        if (vasche.elementAt(i - 1).vascaPiena()) { //se la vasca successiva è piena 
+                            vasche.elementAt(i).setAcqua(false);
+                            vasche.elementAt(i - 1).setAcqua(true);
                         }
+
+                    }
+                    barca.spostaSx();
+
 //                } else {
-//                    for (int i = 0; i < vasche.size(); i++) {
+//                    for (int i = 0; i < vasche.size(); i++) {          //cose sbagliate concettualmente per quando viene cambiata l'inclinazione
 //                        if (vasche.elementAt(i).acquaPresente()) {
 //                            vasche.elementAt(i).spostaAcquaSullaSinistra();
 //                        }
@@ -248,8 +231,6 @@ public class datiCondivisi {
 //                    vasche.elementAt(index).setAcqua(false);
 //                    vasche.elementAt(index - 1).setAcqua(true);
 //                }
-
-                    }
                 }
             }
         } catch (Exception e) {
@@ -258,7 +239,23 @@ public class datiCondivisi {
 
     }
 
-    public int getSpostamentoX() {
+    public void spalmaAcquaSx() {  //non credo servano e sono vuoti, dovrebbero servire per spalmare l'acqua quando viene messa in orizzontale
+        for (int i = 0; i < vasche.size(); i++) {
+            if (vasche.elementAt(i).acquaPresente()) {
+
+            }
+        }
+    }
+
+    public void spalmaAcquaDx() {
+        for (int i = 0; i < vasche.size(); i++) {
+            if (vasche.elementAt(i).acquaPresente()) {
+
+            }
+        }
+    }
+
+    public int getSpostamentoX() {  //ritorna lo spostamento che effettua l'acqua(la sua inclinazione) positivo in modo che si possano usare per fare i calcoli sulla lunghezza
         if (incX < 0) {
             return incX * -1;
         } else {
@@ -267,16 +264,7 @@ public class datiCondivisi {
 
     }
 
-    public boolean nessunaPiena() {
-        for (int i = 0; i < vasche.size(); i++) {
-            if (vasche.elementAt(i).vascaPiena()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public void drawTutto() {
+    public void drawTutto() {   //metodo che viene richiamto ogni frame non toccare
         for (int i = 0; i < vasche.size(); i++) {
             vasche.elementAt(i).draw();
         }
@@ -284,7 +272,7 @@ public class datiCondivisi {
 
     }
 
-    public int getSizeVasche() {
+    public int getSizeVasche() {  //ritorna la dimensione del vetor
         return vasche.size();
     }
 

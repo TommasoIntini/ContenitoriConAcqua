@@ -14,10 +14,9 @@ import processing.core.PApplet;
  */
 public class Vasca {
 
-    private boolean vascaPiena;
+    private boolean vascaPiena;  //rappresenta la vasca da cui scorre l'acqua ser è true
 
-    private int h = 15;    //dimesnioni
-    private int lunghezza = 0;
+    private int lunghezza = 0;  //di ogni vasca
     private int larghezza = 0;
 
     private Acqua acqua;
@@ -25,16 +24,15 @@ public class Vasca {
     private PApplet processingSketch;
     private datiCondivisi ptrDati;
 
-    private Point posi;
+    private Point posi;   //angolo altoSx della vasca
 
-    private int elementoCorrente = 0;
 
     public Vasca()//dato che le vasche sono collegate tra di loro ne utilizzo una per rappresentarle tutte
     {
 
     }
 
-    public Vasca(datiCondivisi ptrDati, PApplet process,
+    public Vasca(datiCondivisi ptrDati, PApplet process,                    //la classe serve quasi solo per la comunicazione tra il vettore di vasca e l'acqua di ogni vasca
             int lunghezza, int larghezza, Point pos, int nVasca) {
         this.lunghezza = lunghezza;
         this.larghezza = larghezza;
@@ -44,7 +42,7 @@ public class Vasca {
 
         this.posi = pos;
 
-        if (nVasca == 0) {                                              //se
+        if (nVasca == 0) {                                              //se vuoi impostare un vasca iniziale diversa piena cambia il numero, con 0, il primo el del vettore viene riempito di acqua
             this.acqua = new Acqua(lunghezza, ptrDati, process, lunghezza, larghezza, pos);
             vascaPiena = true;
         } else {
@@ -58,11 +56,11 @@ public class Vasca {
     }
 
     public void spawnDx() {  //spawna acqua dal margine destro della vasca
-        acqua.spawnDx(lunghezza);
+        acqua.spawnDx();
     }
 
     public void spawnSx() {  //spawna acqua dal margine sinistro della vasca
-        acqua.spawnSx(lunghezza);
+        acqua.spawnSx();
     }
 
     public void inclinaDx() {
@@ -77,10 +75,13 @@ public class Vasca {
         return acqua.getPos();
     }
 
-    public void setAcqua(boolean ris) {
+    public void setAcqua(boolean ris) { //setta se la vasca indicata dal vettore deve diventare quella da cui l'acqua dever defluire
         this.vascaPiena = ris;
     }
-    public boolean acquaPresente() {
+    
+    
+    
+    public boolean acquaPresente() {   //se è presente una qualunque quantità di acqua
         if (acqua.getLunghezza() != 0 ) {
             return true;
         } else {
@@ -88,7 +89,7 @@ public class Vasca {
         }
     }
 
-    public void spostaAcquaSullaDestra() {
+    public void spostaAcquaSullaDestra() {   //non ancora usati, forse inutili
         acqua.spostaDx();
     }
 
@@ -96,7 +97,7 @@ public class Vasca {
         acqua.spostaSx();
     }
 
-    public boolean vascaPiena() {
+    public boolean vascaPiena() {   //se la vasca è piena ritorna true
         if (acqua.getLunghezza() == lunghezza && acqua.getLarghezza() == larghezza) {
             return true;
         }
@@ -108,9 +109,14 @@ public class Vasca {
     }
 
     
-    public void appiattisciAcqua()
+    public void appiattisciAcquaDaDx()
     {
-        acqua.appiattisci();
+        
+    }
+    
+    public void appiattisciAcquaDaSx()
+    {
+        
     }
     public void draw() {
 

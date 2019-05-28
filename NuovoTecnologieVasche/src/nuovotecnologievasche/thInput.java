@@ -24,8 +24,7 @@ public class thInput extends Thread {
 
     public void run() {
         while (!isInterrupted()) {
-            System.out.println("Premere 'A' per inclinare a sinistra e 'D' per inclinare a destra");
-            System.out.println("Premere 'W' per inclinare a sinistra e 'S' per inclinare a destra");
+            System.out.println("Premere 'A' per inclinare a sinistra e 'D' per inclinare a destra");//attende un input
             inserito = sc.next().charAt(0);
             ptrDati.hoInclinato(inserito);
             
