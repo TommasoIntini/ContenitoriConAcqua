@@ -10,7 +10,7 @@ import processing.core.PApplet;
 
 /**
  *
- * @author Tommaso
+ * @author Mirko Ghislanzoni
  */
 public class Barca {
 
@@ -20,7 +20,7 @@ public class Barca {
     private int altezza;
     private int larghezza;
 
-    private int spostamentoX;
+    private int spostamentoX; //rappresenta la posizione sull'asse x della barca
     private int spostamentoY;
 
     private Point posCentrale;
@@ -64,7 +64,7 @@ public class Barca {
         }
     }
 
-    public void spostaDx() {
+    public void spostaDx() { //sposta la barca a destra
         int spostamentoTemp = ptrDati.getInclinazioneX();
         if ((pos.x + spostamentoTemp + larghezza) > ptrDati.getPosDraw().x + ptrDati.getLarghezzaVasca()) {
             pos.x = ptrDati.getPosDraw().x + ptrDati.getLarghezzaVasca() - larghezza;
@@ -81,7 +81,7 @@ public class Barca {
         return true;
     }
 
-    public void spostaInAcqua() {
+   // public void spostaInAcqua() {
 
-    }
+    //}
 }

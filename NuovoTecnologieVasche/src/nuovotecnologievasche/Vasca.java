@@ -10,7 +10,7 @@ import processing.core.PApplet;
 
 /**
  *
- * @author Tommaso
+ * @author Mirko Ghislanzoni
  */
 public class Vasca {
 

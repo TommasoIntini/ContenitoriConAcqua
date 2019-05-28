@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Tommaso
+ * @author Mirko Ghislanzoni
  */
 public class thInput extends Thread {
 

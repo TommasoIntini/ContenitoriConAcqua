@@ -104,7 +104,7 @@ public class Acqua {
 
     public void spawnSx() {   //come spawnDx ma da Sx
         int spostamentoTemp = ptrDati.getSpostamentoX();
-        if (spostamentoX == pos.x + lVasca) {  //
+        if (spostamentoX == pos.x + lVasca) { 
 
             spostamentoX = pos.x;
             lunghezza += spostamentoTemp;
@@ -134,14 +134,14 @@ public class Acqua {
     public void inclinaDx() {               
         int spostamentoTemp = ptrDati.getSpostamentoX();
 
-        if (ptrDati.getInclinazioneX() < 0) {
-            lunghezza += spostamentoTemp;
+        if (ptrDati.getInclinazioneX() < 0) { //se si stava inclinando a sinistra
+            lunghezza += spostamentoTemp;    
         } else if ((spostamentoX + spostamentoTemp) >= (pos.x + ptrDati.getLarghezzaVasca())) {
             spostamentoX = pos.x + ptrDati.getLarghezzaVasca();
             lunghezza = 0;
         } else {
             spostamentoX += spostamentoTemp;
-            lunghezza -= spostamentoTemp;
+            lunghezza -= spostamentoTemp; //se l'acqua deve andare a destra solosi diminusice
         }
 
     }
