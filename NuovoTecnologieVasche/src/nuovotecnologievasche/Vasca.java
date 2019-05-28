@@ -45,11 +45,10 @@ public class Vasca {
         this.posi = pos;
 
         if (nVasca == 0) {                                              //se
-            this.acqua = new Acqua(ptrDati, process, lunghezza, larghezza, pos);
+            this.acqua = new Acqua(lunghezza, ptrDati, process, lunghezza, larghezza, pos);
             vascaPiena = true;
         } else {
-            int x = pos.x;
-            this.acqua = new Acqua(ptrDati, process, 0, larghezza, new Point(x + lunghezza, pos.y), lunghezza);
+            this.acqua = new Acqua(ptrDati, process, 0, larghezza, new Point(pos.x, pos.y), lunghezza);
         }
 
     }
@@ -58,47 +57,44 @@ public class Vasca {
         acqua.inclinaSx();
     }
 
-    public void spawnDx() {
+    public void spawnDx() {  //spawna acqua dal margine destro della vasca
         acqua.spawnDx(lunghezza);
     }
 
-    public void spawnSx() {
+    public void spawnSx() {  //spawna acqua dal margine sinistro della vasca
         acqua.spawnSx(lunghezza);
     }
-//
-//    public void spawnDw() {
-//        acqua.spawnDw(larghezza);
-//    }
-//
-//    public void spawnUp() {
-//        acqua.spawnUp(larghezza);
-//    }
 
     public void inclinaDx() {
         acqua.inclinaDx();
     }
 
-    public void inclinaUp() {
-        acqua.inclinaUp();
-
+    public int getSpostamentoAcquaX() {
+        return acqua.getSpostamentoX();
     }
 
-    public void inclinaDw() {
-        acqua.inclinaDw();
+    public Point getPosAcqua() {
+        return acqua.getPos();
     }
 
     public void setAcqua(boolean ris) {
         this.vascaPiena = ris;
     }
-
     public boolean acquaPresente() {
-        if (acqua.getLunghezza() != 0 && acqua.getLarghezza() != 0) {
+        if (acqua.getLunghezza() != 0 ) {
             return true;
         } else {
             return false;
         }
     }
 
+    public void spostaAcquaSullaDestra() {
+        acqua.spostaDx();
+    }
+
+    public void spostaAcquaSullaSinistra() {
+        acqua.spostaSx();
+    }
 
     public boolean vascaPiena() {
         if (acqua.getLunghezza() == lunghezza && acqua.getLarghezza() == larghezza) {
@@ -111,6 +107,11 @@ public class Vasca {
         return vascaPiena;
     }
 
+    
+    public void appiattisciAcqua()
+    {
+        acqua.appiattisci();
+    }
     public void draw() {
 
         acqua.draw();

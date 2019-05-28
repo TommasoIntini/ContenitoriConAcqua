@@ -21,20 +21,18 @@ public class thAcqua extends Thread {
     }
 
     public void run() {
+        try {
 
-        while (!isInterrupted()) {
-            if (ptrDati.getInclinazioneX() != 0) {
-                ptrDati.inclinazioneX();
-            }
-            if (ptrDati.getInclinazioneY() != 0) {
-                ptrDati.inclinazioneY();
-            }
+            while (!isInterrupted()) {
+                if (ptrDati.getInclinazioneX() != 0) {
+                    ptrDati.inclinazioneX();
+                } 
 
-            try {
                 Thread.sleep(tempoAttesa);
-            } catch (Exception e) {
 
             }
+        } catch (Exception e) {
+
         }
 
     }

@@ -32,8 +32,7 @@ public class thInput extends Thread {
 
                
         }
-        System.out.println("Hai fatto uscire tutta l'acqua, sei un tonno");
-        System.exit(0);
+
         
         
     }

@@ -135,27 +135,55 @@ public class datiCondivisi {
 
     }
 
-    public void setPienaPrimaVascaOrizzontaleConAcqua() {
+//    public void setPienaPrimaVascaOrizzontaleConAcqua() {
+//        for (int i = 0; i < vasche.size(); i++) {
+//            if (vasche.elementAt(i).acquaPresente()) {
+//                vasche.elementAt(i).setAcqua(true);
+//            } else {
+//                vasche.elementAt(i).setAcqua(false);
+//            }
+//        }
+//    }
+    public int getIndexPrimaPiena() {
+        int temp = 0;
         for (int i = 0; i < vasche.size(); i++) {
-            if (vasche.elementAt(i).acquaPresente()) {
-                vasche.elementAt(i).setAcqua(true);
-            } else {
-                vasche.elementAt(i).setAcqua(false);
+            if (vasche.elementAt(i).getStatoAcqua()) {
+                temp = i;
             }
         }
+        return temp;
+    }
+
+    public boolean stavoInclinandoASinistra() {
+        int index = getIndexPrimaPiena();
+        if (vasche.elementAt(index).getSpostamentoAcquaX() == vasche.elementAt(index).getPosAcqua().x) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public boolean stavoInclinandoADestra() {
+        int index = getIndexPrimaPiena();
+        if (vasche.elementAt(index).getSpostamentoAcquaX() >= vasche.elementAt(index).getPosAcqua().x) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     public synchronized void inclinazioneX() {
         try {
             if (incX > 0)//inclina a dx
             {
-                if (nessunaPiena()) {
+                if (stavoInclinandoADestra()) {
                     for (int i = 0; i < vasche.size(); i++) {
                         if (vasche.elementAt(i).getStatoAcqua()) {
                             vasche.elementAt(i).inclinaDx();
 
                             vasche.elementAt(i + 1).spawnDx();
-                            //vasche.elementAt(i+1).spawnSx();
 
                             if (vasche.elementAt(i + 1).vascaPiena()) { //se la vasca successiva è piena 
                                 vasche.elementAt(i).setAcqua(false);
@@ -164,26 +192,77 @@ public class datiCondivisi {
 
                         }
 
+                        barca.spostaDx();
                     }
-                }
-            } else if (incX < 0) {
-                for (int i = 0; i < vasche.size(); i++) {
-                    if (vasche.elementAt(i).getStatoAcqua()) {
-                        vasche.elementAt(i).inclinaSx();
+//                } else {
+//                    for (int i = 0; i < vasche.size(); i++) {
+//                        if (vasche.elementAt(i).acquaPresente()) {
+//                            vasche.elementAt(i).spostaAcquaSullaDestra();
+//                        }
+//
+//                        int index = getIndexPrimaPiena();
+//                        vasche.elementAt(index).setAcqua(true);
+//
+//                        while (vasche.elementAt(index).acquaPresente()) {
+//                            vasche.elementAt(index).inclinaDx();
+//                            Thread.sleep(100);
+//                        }
+//                        vasche.elementAt(index).setAcqua(false);
+//                        vasche.elementAt(index + 1).setAcqua(true);
+//                    }
+//
+//                    vasche.elementAt(getIndexPrimaPiena()).setAcqua(true);
+//                }
 
-                        // vasche.elementAt(i-1).spawnSx();
-                        //vasche.elementAt(i+1).spawnSx();
-                        if (vasche.elementAt(i - 1).vascaPiena()) { //se la vasca successiva è piena 
-                            vasche.elementAt(i).setAcqua(false);
-                            vasche.elementAt(i - 1).setAcqua(true);
+                } else if (incX < 0) {
+
+                    if (stavoInclinandoASinistra()) {
+                        for (int i = 0; i < vasche.size(); i++) {
+                            if (vasche.elementAt(i).getStatoAcqua()) {
+                                vasche.elementAt(i).inclinaSx();
+
+                                vasche.elementAt(i - 1).spawnSx();
+                                //vasche.elementAt(i+1).spawnSx();
+                                if (vasche.elementAt(i - 1).vascaPiena()) { //se la vasca successiva è piena 
+                                    vasche.elementAt(i).setAcqua(false);
+                                    vasche.elementAt(i - 1).setAcqua(true);
+                                }
+
+                            }
+                            barca.spostaSx();
                         }
+//                } else {
+//                    for (int i = 0; i < vasche.size(); i++) {
+//                        if (vasche.elementAt(i).acquaPresente()) {
+//                            vasche.elementAt(i).spostaAcquaSullaSinistra();
+//                        }
+//                    }
+//                    int index = getIndexPrimaPiena() + 1;
+//                    vasche.elementAt(index).setAcqua(true);
+//                    vasche.elementAt(index - 1).setAcqua(false);
+//
+//                    while (vasche.elementAt(index).acquaPresente()) {
+//                        vasche.elementAt(index).inclinaSx();
+//                        Thread.sleep(100);
+//                    }
+//                    vasche.elementAt(index).setAcqua(false);
+//                    vasche.elementAt(index - 1).setAcqua(true);
+//                }
 
                     }
-
                 }
             }
         } catch (Exception e) {
 
+        }
+
+    }
+
+    public int getSpostamentoX() {
+        if (incX < 0) {
+            return incX * -1;
+        } else {
+            return incX;
         }
 
     }
@@ -197,20 +276,6 @@ public class datiCondivisi {
         return true;
     }
 
-    public synchronized void inclinazioneY() {
-        if (incY > 0)//inclina basso
-        {
-            for (int i = 0; i < vasche.size(); i++) {
-                vasche.elementAt(i).inclinaUp();
-            }
-        } else if (incY < 0) {
-            for (int i = 0; i < vasche.size(); i++) {
-                vasche.elementAt(i).inclinaDw();
-            }
-        }
-
-    }
-
     public void drawTutto() {
         for (int i = 0; i < vasche.size(); i++) {
             vasche.elementAt(i).draw();
@@ -218,4 +283,9 @@ public class datiCondivisi {
         barca.draw();
 
     }
+
+    public int getSizeVasche() {
+        return vasche.size();
+    }
+
 }
