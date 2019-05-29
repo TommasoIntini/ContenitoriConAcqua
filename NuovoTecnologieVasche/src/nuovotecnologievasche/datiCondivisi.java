@@ -300,7 +300,7 @@ public class datiCondivisi {
 
     }
 
-    public void faiVascheFinte() {    //crea le vasche finte per fare finta di spalmare l'acqua
+    public void faiVascheFinteSx() {    //crea le vasche finte per fare finta di spalmare l'acqua
         for (int i = 0; i < vasche.size(); i++) {
             if (vasche.elementAt(i).acquaPresente()) {
                 if (vascheFinte[0] == null) {
@@ -314,10 +314,24 @@ public class datiCondivisi {
         }
     }
 
+    public void faiVascheFinteDx() {    //crea le vasche finte per fare finta di spalmare l'acqua
+        for (int i = 0; i < vasche.size(); i++) {
+            if (vasche.elementAt(i).acquaPresente()) {
+                if (vascheFinte[0] == null) {
+                    vascheFinte[0] = vasche.elementAt(i -1).copyVasca();
+                    vascheFinte[0].setAcqua(false);
+                    vascheFinte[1] = vasche.elementAt(i ).copyVasca();
+                    vascheFinte[1].setAcqua(false);
+                }
+
+            }
+        }
+    }
+
     public void spalmaAcquaSx() {  //non credo servano e sono vuoti, dovrebbero servire per spalmare l'acqua quando viene messa in orizzontale
 
         if (vascheFinte[0] == null && vascheFinte[1] == null) {
-            faiVascheFinte();
+            faiVascheFinteSx();
         }
 
         if (!vascheFinte[0].getStatoAcqua()) {
@@ -340,7 +354,7 @@ public class datiCondivisi {
     public void spalmaAcquaDx() {
 
         if (vascheFinte[0] == null && vascheFinte[1] == null) {
-            faiVascheFinte();
+            faiVascheFinteDx();
         }
 
         vascheFinte[0].spawnSx(spostamentoAcqua);

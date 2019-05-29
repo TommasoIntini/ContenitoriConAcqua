@@ -23,6 +23,7 @@ public class NuovoTecnologieVasche extends PApplet{
         dati = new datiCondivisi(150,150,3,this);
         
     }
+    
     public static void main(String[] args) {
         PApplet.main(new String[]{"nuovotecnologievasche.NuovoTecnologieVasche"});//Imposto questo come main principale
         // TODO code application logic here

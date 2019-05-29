@@ -53,7 +53,7 @@ public class Vasca {
 
         this.posi = pos;
 
-        if (nVasca == 0) {                                              //se vuoi impostare un vasca iniziale diversa piena cambia il numero, con 0, il primo el del vettore viene riempito di acqua
+    if (nVasca == 0) {                                              //se vuoi impostare un vasca iniziale diversa piena cambia il numero, con 0, il primo el del vettore viene riempito di acqua
             this.acqua = new Acqua(lunghezza, ptrDati, process, lunghezza, larghezza, pos);
             vascaPiena = true;
         } else {

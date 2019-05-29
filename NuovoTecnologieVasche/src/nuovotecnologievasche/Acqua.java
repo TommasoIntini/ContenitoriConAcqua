@@ -175,7 +175,7 @@ public class Acqua {
         } else if ((spostamentoX + spostamentoTemp) >= (pos.x + ptrDati.getLarghezzaVasca())) {
             spostamentoX = pos.x + ptrDati.getLarghezzaVasca();
             lunghezza = 0;
-        } else {
+           } else {
             spostamentoX += spostamentoTemp;
             lunghezza -= spostamentoTemp; //se l'acqua deve andare a destra solosi diminusice
         }

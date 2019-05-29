@@ -18,7 +18,7 @@ public class thAcqua extends Thread {
     public thAcqua(datiCondivisi ptrDati) //thread sempre in esecuzione, ogni mezzo secondo modifica i valori dell'acqua(larghezza e lunghezza)
     {
         this.ptrDati = ptrDati;
-        tempoAttesa = 100;
+        tempoAttesa = 50;
         inclinazionePrec = 0;
     }
 
@@ -28,7 +28,7 @@ public class thAcqua extends Thread {
             while (!isInterrupted()) {
 
                 if (ptrDati.getInclinazioneX() != 0) {  //se è stata inserita un inclinazione da thInput
-                   tempoAttesa = 100;
+                   tempoAttesa = 50;
                     ptrDati.inclinazioneX();
                     if (ptrDati.getInclinazioneX() > 0) {       //in modo che si capische se l'acqua si deve espandere sul piano da sinistra o da destra
                         inclinazionePrec = 1;
@@ -42,7 +42,7 @@ public class thAcqua extends Thread {
                     tempoAttesa = 30;
                     if (inclinazionePrec == 1) {  //si  spalma l'acqua
                         ptrDati.spalmaAcquaSx();   //e si azzera l'inclinazione precedente in modo che possa nuovamente essere utilizzata
-                        if (ptrDati.vascheFintePiene()) {
+                        if (ptrDati.vascheFintePiene() || ptrDati.getInclinazioneX()!= 0) {
                             inclinazionePrec = 0;
                         }
                     } else if (inclinazionePrec == -1) {
