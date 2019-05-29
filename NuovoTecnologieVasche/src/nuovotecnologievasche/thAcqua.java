@@ -26,26 +26,30 @@ public class thAcqua extends Thread {
         try {
 
             while (!isInterrupted()) {
-                
+
                 if (ptrDati.getInclinazioneX() != 0) {  //se è stata inserita un inclinazione da thInput
-                    ptrDati.inclinazioneX();            
-                    if (inclinazionePrec == 0) {  //rappresenta l'inclinazione precendente, in modo che quando l'inclinazione effettiva della vasca vada a 0 rimane o positivo o negativo
-                        if (ptrDati.getInclinazioneX() > 0) {       //in modo che si capische se l'acqua si deve espandere sul piano da sinistra o da destra
-                            inclinazionePrec = 1;
-                        } else {
-                            inclinazionePrec = -1;
-                        }
+                   tempoAttesa = 100;
+                    ptrDati.inclinazioneX();
+                    if (ptrDati.getInclinazioneX() > 0) {       //in modo che si capische se l'acqua si deve espandere sul piano da sinistra o da destra
+                        inclinazionePrec = 1;
+                    } else {
+                        inclinazionePrec = -1;
                     }
 
                 }
 
                 if (ptrDati.getInclinazioneX() == 0) {  //quando no è piu inclinato
+                    tempoAttesa = 30;
                     if (inclinazionePrec == 1) {  //si  spalma l'acqua
                         ptrDati.spalmaAcquaSx();   //e si azzera l'inclinazione precedente in modo che possa nuovamente essere utilizzata
-                        inclinazionePrec = 0;
+                        if (ptrDati.vascheFintePiene()) {
+                            inclinazionePrec = 0;
+                        }
                     } else if (inclinazionePrec == -1) {
                         ptrDati.spalmaAcquaDx();
-                        inclinazionePrec = 0;
+                        if (ptrDati.vascheFintePiene()) {
+                            inclinazionePrec = 0;
+                        }
                     }
 
                 }
