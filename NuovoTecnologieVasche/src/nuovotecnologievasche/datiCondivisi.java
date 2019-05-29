@@ -157,9 +157,8 @@ public class datiCondivisi {
 
     public boolean stavoInclinandoADestra() {   //Se si stava inclinando destra restituisce true
         int index = getIndexPrimaConAcqua();
-        int s1 = vasche.elementAt(index).getSpostamentoAcquaX();
-        int s2 = vasche.elementAt(index).getPosAcqua().x;
-        if (s1 > s2) {
+        if (vasche.elementAt(index).getSpostamentoAcquaX()
+                > vasche.elementAt(index).getPosAcqua().x) {
             return true;
         } else {
             return false;
@@ -191,8 +190,12 @@ public class datiCondivisi {
 
                 } else {
                     if (stavoInclinandoADestra()) {
-                        vascheFinte[0].inclinaDx();
-                        vascheFinte[1].inclinaDx();
+                        if (vascheFinte[0] != null) {
+                            vascheFinte[0].inclinaDx();
+                        }
+                        if (vascheFinte[1] != null) {
+                            vascheFinte[1].inclinaDx();
+                        }
                         if (acquaFintaHaRaggiuntoAcquaVeraV1()) {
                             vascheFinte[0] = null;
                         }
@@ -229,8 +232,12 @@ public class datiCondivisi {
                     }
                 } else {
                     if (stavoInclinandoASinistra()) {
-                        vascheFinte[0].inclinaSx();
-                        vascheFinte[1].inclinaSx();
+                        if (vascheFinte[0] != null) {
+                            vascheFinte[0].inclinaSx();
+                        }
+                        if (vascheFinte[1] != null) {
+                            vascheFinte[1].inclinaSx();
+                        }
                         if (acquaFintaHaRaggiuntoAcquaVeraV1()) {
                             vascheFinte[0] = null;
                         }
@@ -255,16 +262,21 @@ public class datiCondivisi {
     }
 
     public boolean acquaFintaHaRaggiuntoAcquaVeraV1() {
-        int index = getIndexPrimaConAcqua();
-        if (vascheFinte[0].getAcqua().getLunghezza() <= vasche.elementAt(index).getAcqua().getLunghezza()) {
-            return true;
+        try {
+            int index = getIndexPrimaConAcqua();
+            if (vascheFinte[0].getAcqua().getLunghezza() <= vasche.elementAt(index).getAcqua().getLunghezza()) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            return true;        //se si verifica un eccezione vuol dire che è gia stato interrotto
         }
-        return false;
+
     }
 
     public boolean acquaFintaHaRaggiuntoAcquaVeraV2() {
         int index = getIndexPrimaConAcqua();
-        if (vascheFinte[1].getAcqua().getLunghezza() <= vasche.elementAt(index+1).getAcqua().getLunghezza()) {
+        if (vascheFinte[1].getAcqua().getLunghezza() <= vasche.elementAt(index + 1).getAcqua().getLunghezza()) {
             return true;
         }
         return false;

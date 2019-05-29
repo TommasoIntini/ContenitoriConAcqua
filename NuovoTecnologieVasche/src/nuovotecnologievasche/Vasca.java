@@ -61,14 +61,13 @@ public class Vasca {
         }
 
     }
-    public Vasca copyVasca()
-    {
-        Vasca temp = new Vasca(ptrDati,processingSketch,lunghezza,larghezza,posi,1);
+
+    public Vasca copyVasca() {
+        Vasca temp = new Vasca(ptrDati, processingSketch, lunghezza, larghezza, posi, 1);
         return temp;
     }
-    
-    public Acqua getAcqua()
-    {
+
+    public Acqua getAcqua() {
         return acqua;
     }
 
@@ -81,7 +80,12 @@ public class Vasca {
     }
 
     public void inclinaSx() {
-        acqua.inclinaSx();
+        try {
+            acqua.inclinaSx();
+        } catch (Exception e) {
+
+        }
+
     }
 
     public void spawnDx() {  //spawna acqua dal margine destro della vasca
@@ -105,7 +109,12 @@ public class Vasca {
     }
 
     public void inclinaDx() {
-        acqua.inclinaDx();
+        try {
+            acqua.inclinaDx();
+        } catch (Exception e) {
+
+        }
+
     }
 
     public int getSpostamentoAcquaX() {
